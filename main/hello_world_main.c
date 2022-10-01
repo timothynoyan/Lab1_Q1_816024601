@@ -28,7 +28,10 @@ void app_main()
     printf("%dMB %s flash\n", spi_flash_get_chip_size() / (1024 * 1024),
             (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
 
-    for (int i = 1; i >= 0; i--) {
+    /* Get last two digits of ID# */
+    const int last_two_digits = (816024601 % 100) % 17;
+
+    for (int i = last_two_digits; i >= 0; i--) {
         printf("Restarting in %d seconds...\n", i);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
